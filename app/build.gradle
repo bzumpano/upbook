@@ -1,0 +1,69 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "com.app.android.upbook"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+
+
+    // TESTS
+
+    // junit
+    testCompile "junit:junit:$junit_version"
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M2'
+    testCompile "org.junit.platform:junit-platform-runner:$junit_platform_version"
+
+    // mockito
+    testCompile "org.mockito:mockito-core:$mockito_version"
+
+    // hamcrest
+    testCompile "org.hamcrest:hamcrest-all:$hamcrest_version"
+
+    // robolectric
+    testCompile "org.robolectric:robolectric:$robolectric_version"
+    testCompile "org.robolectric:shadows-support-v4:$robolectric_version"
+
+
+    // kotlin
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+
+    // spek
+    testCompile "org.jetbrains.spek:spek-api:$spek_version"
+    testCompile "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
+
+
+    // ANDROID TESTS
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
+repositories {
+    mavenCentral()
+}
