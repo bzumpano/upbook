@@ -4,6 +4,8 @@ buildscript {
     ext{
         gradle_version = '3.0.0-alpha1'
         kotlin_version = '1.1.2-4'
+        jsoup_version = '1.10.2'
+        butterknife_version = '8.5.1'
 
         junit_version = '4.12'
         mockito_version = "2.8.9"
@@ -20,7 +22,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0-alpha1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+        classpath "com.jakewharton:butterknife-gradle-plugin:$butterknife_version"
     }
 }
 
