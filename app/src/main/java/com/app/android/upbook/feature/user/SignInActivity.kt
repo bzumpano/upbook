@@ -59,13 +59,11 @@ class SignInActivity : AppCompatActivity(), SignInContract.View {
 
     override fun onSuccess(authenticated: Boolean) {
 
-        println("1")
         val view = findViewById(R.id.login_form)
         val message = Snackbar.make(view, "Authenticated: " + authenticated, Snackbar.LENGTH_INDEFINITE)
 
         message.setAction("OK") { message.dismiss() }
         message.show()
-        println("2")
     }
 
     override fun onComplete() {

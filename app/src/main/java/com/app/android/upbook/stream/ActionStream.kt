@@ -14,22 +14,22 @@ open class ActionStream<T>(val method: Callable<T>) {
 
     var thread : Thread? = null
 
-    fun onBefore(action: () -> Unit): ActionStream<*> {
+    fun onBefore(action: () -> Unit): ActionStream<T> {
         this.onBefore = action
         return this
     }
 
-    fun onSuccess(action: (T) -> Unit): ActionStream<*> {
+    fun onSuccess(action: (T) -> Unit): ActionStream<T> {
         this.onSuccess = action
         return this
     }
 
-    fun onError(action: (E : Exception) -> Unit): ActionStream<*> {
+    fun onError(action: (E : Exception) -> Unit): ActionStream<T> {
         this.onError = action
         return this
     }
 
-    fun onComplete(action: () -> Unit): ActionStream<*> {
+    fun onComplete(action: () -> Unit): ActionStream<T> {
         this.onComplete = action
         return this
     }

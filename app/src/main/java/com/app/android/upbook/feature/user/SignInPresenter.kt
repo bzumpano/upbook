@@ -15,7 +15,7 @@ class SignInPresenter(val view: SignInContract.View, val repository: UserReposit
         stream = ActionStream<Boolean>(Callable { repository.signIn(email, password) })
 
         stream!!.onBefore { view.onBefore() }
-                .onSuccess {authenticated -> view.onSuccess(authenticated as Boolean)}
+                .onSuccess {authenticated -> view.onSuccess(authenticated)}
                 .onError { view.onError() }
                 .onComplete { view.onComplete() }
                 .run()
