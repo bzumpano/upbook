@@ -1,5 +1,6 @@
 package com.app.android.upbook.stream
 
+import com.app.android.upbook.BuildConfig
 import java.util.concurrent.Callable
 
 /**
@@ -43,6 +44,10 @@ open class ActionStream<T>(val method: Callable<T>) {
             }
             catch (e: Exception) {
                 onError(e)
+
+                if (BuildConfig.DEBUG) {
+                    e.printStackTrace()
+                }
             }
             finally {
                 onComplete()

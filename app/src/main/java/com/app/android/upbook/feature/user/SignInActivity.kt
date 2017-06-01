@@ -1,5 +1,6 @@
 package com.app.android.upbook.feature.user
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -8,7 +9,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -49,8 +49,19 @@ class SignInActivity : AppCompatActivity(), SignInContract.View {
         })
     }
 
+    var dialog: ProgressDialog? = null
+
     override fun onBefore() {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        runOnUiThread({
+            dialog = ProgressDialog(this)
+            dialog!!.isIndeterminate = true
+            dialog!!.setTitle("Autenticando usuário")
+            dialog!!.setMessage("Aguarde...")
+
+            dialog!!.show()
+        })
+
     }
 
     override fun onError() {
@@ -68,6 +79,8 @@ class SignInActivity : AppCompatActivity(), SignInContract.View {
 
     override fun onComplete() {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        runOnUiThread({ dialog?.hide() })
+
     }
 
     /**
@@ -88,8 +101,8 @@ class SignInActivity : AppCompatActivity(), SignInContract.View {
         var focusView: View? = null
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.error = getString(R.string.error_invalid_password)
+        if (TextUtils.isEmpty(password)) {
+            mPasswordView.error = getString(R.string.error_field_required)
             focusView = mPasswordView
             cancel = true
         }
@@ -97,10 +110,6 @@ class SignInActivity : AppCompatActivity(), SignInContract.View {
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.error = getString(R.string.error_field_required)
-            focusView = mEmailView
-            cancel = true
-        } else if (!isEmailValid(email)) {
-            mEmailView.error = getString(R.string.error_invalid_email)
             focusView = mEmailView
             cancel = true
         }
@@ -115,23 +124,12 @@ class SignInActivity : AppCompatActivity(), SignInContract.View {
     }
 
     private fun createRepository(): UserRepository {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         return UserRepository()
     }
 
     private fun resetErrors() {
         mEmailView.error = null
         mPasswordView.error = null
-    }
-
-    private fun isEmailValid(email: String): Boolean {
-        //TODO: Replace this with your own logic
-        return email.contains("@")
-    }
-
-    private fun isPasswordValid(password: String): Boolean {
-        //TODO: Replace this with your own logic
-        return password.length > 4
     }
 }
 
